@@ -113,7 +113,10 @@ function loadSession(): State | null {
       answers: QuizAnswerMap;
       startedAt?: number | null;
     };
-    if (parsed.version !== QUIZ_VERSION) return null;
+    if (parsed.version !== QUIZ_VERSION) {
+      localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
     return {
       step: Math.min(5, Math.max(0, parsed.step || 0)),
       answers: parsed.answers || {},
@@ -127,7 +130,8 @@ function loadSession(): State | null {
 
 export function QuizEngine() {
   const initial: State =
-    loadSession() || ({ step: 0, answers: {}, startedAt: null, completed: false } as State);
+    loadSession() ||
+    ({ step: 0, answers: {}, startedAt: null, completed: false } as State);
 
   const [state, dispatch] = useReducer(reducer, initial);
 
@@ -175,7 +179,7 @@ export function QuizEngine() {
   return (
     <div>
       <QuizProgress total={6} current={state.step + 1} />
-      <div className="mt-6">
+      <div className="mt-6" aria-live="polite">
         <QuestionStep
           key={current.id}
           question={current}
@@ -220,7 +224,9 @@ export function QuizEngine() {
             className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-50"
             onClick={() => {
               dispatch({ type: "complete" });
-              const elapsed = state.startedAt ? (Date.now() - state.startedAt) / 1000 : undefined;
+              const elapsed = state.startedAt
+                ? (Date.now() - state.startedAt) / 1000
+                : undefined;
               const result = computeRecommendation(state.answers);
               emitAnalytics("quiz_complete", {
                 totalSeconds: elapsed,
@@ -236,5 +242,3 @@ export function QuizEngine() {
     </div>
   );
 }
-
-

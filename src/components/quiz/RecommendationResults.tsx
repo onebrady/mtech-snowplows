@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import type { QuizResult } from "../../lib/quiz/types";
 import { emitAnalytics } from "../../lib/analytics";
+import { useEffect } from "react";
+import { ContactCapture } from "./ContactCapture";
 
 const LITERATURE_LINKS: Record<string, { label: string; url: string }[]> = {
   A: [
@@ -16,13 +18,21 @@ const LITERATURE_LINKS: Record<string, { label: string; url: string }[]> = {
     { label: "Fit & Compliance", url: "#/section/fit-compliance" },
   ],
   D: [
-    { label: "Telematics & Maintenance", url: "#/section/telematics-maintenance" },
-    { label: "Environmental Compliance", url: "#/section/environmental-compliance" },
+    {
+      label: "Telematics & Maintenance",
+      url: "#/section/telematics-maintenance",
+    },
+    {
+      label: "Environmental Compliance",
+      url: "#/section/environmental-compliance",
+    },
   ],
 };
 
 export function RecommendationResults({ result }: { result: QuizResult }) {
-  const links = LITERATURE_LINKS[result.primary] || [{ label: "Downloads", url: "#/downloads" }];
+  const links = LITERATURE_LINKS[result.primary] || [
+    { label: "Downloads", url: "#/downloads" },
+  ];
 
   return (
     <section aria-labelledby="quiz-results">
@@ -30,6 +40,12 @@ export function RecommendationResults({ result }: { result: QuizResult }) {
         Your Recommendation: {result.primary}
       </h2>
       <p className="mt-2 text-slate-700">{result.rationale}</p>
+      {useEffect(() => {
+        emitAnalytics("quiz_result_view", {
+          primary: result.primary,
+          alternatives: result.alternatives,
+        });
+      }, [result.primary, result.alternatives])}
 
       {result.alternatives.length > 0 && (
         <div className="mt-4">
@@ -49,7 +65,9 @@ export function RecommendationResults({ result }: { result: QuizResult }) {
             <li key={l.url}>
               <a
                 href={l.url}
-                onClick={() => emitAnalytics("quiz_result_link_click", { url: l.url })}
+                onClick={() =>
+                  emitAnalytics("quiz_result_link_click", { url: l.url })
+                }
                 className="text-slate-900 hover:underline"
               >
                 {l.label}
@@ -61,14 +79,18 @@ export function RecommendationResults({ result }: { result: QuizResult }) {
           <Link
             to="/"
             className="inline-flex px-4 py-2 rounded bg-slate-900 text-white hover:bg-slate-800"
-            onClick={() => emitAnalytics("quiz_result_view", { primary: result.primary, alternatives: result.alternatives })}
+            onClick={() =>
+              emitAnalytics("quiz_result_view", {
+                primary: result.primary,
+                alternatives: result.alternatives,
+              })
+            }
           >
             Back to Knowledge Hub
           </Link>
         </div>
       </div>
+      <ContactCapture />
     </section>
   );
 }
-
-

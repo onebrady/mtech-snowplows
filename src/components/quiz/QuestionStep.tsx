@@ -10,8 +10,11 @@ export function QuestionStep({
   onSelect: (value: string) => void;
 }) {
   return (
-    <fieldset>
+    <fieldset aria-describedby={`${question.id}-hint`}>
       <legend className="font-medium">{question.title}</legend>
+      <p id={`${question.id}-hint`} className="sr-only">
+        Choose one option.
+      </p>
       <div className="mt-3 flex flex-col gap-2">
         {question.options.map((opt) => (
           <label key={opt.id} className="inline-flex items-center gap-2">
@@ -29,5 +32,3 @@ export function QuestionStep({
     </fieldset>
   );
 }
-
-
