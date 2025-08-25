@@ -49,14 +49,25 @@ function mtech_kh_enqueue_assets() {
     wp_enqueue_script('mtech-kh-vite-client', $vite_client, [], null, true);
     wp_enqueue_script('mtech-kh-app', $vite_entry, ['mtech-kh-vite-client'], null, true);
   } else {
-    $base = plugin_dir_url(__FILE__) . 'assets/';
-    $css  = plugin_dir_path(__FILE__) . 'assets/knowledge-hub.css';
-    $js   = plugin_dir_path(__FILE__) . 'assets/knowledge-hub.js';
-    $ver_css = file_exists($css) ? filemtime($css) : null;
-    $ver_js  = file_exists($js) ? filemtime($js) : null;
+    $use_remote = defined('MTECH_KH_ASSET_ORIGIN') && MTECH_KH_ASSET_ORIGIN;
+    if ($use_remote) {
+      $base = rtrim(MTECH_KH_ASSET_ORIGIN, '/') . '/';
+      $ver_css = null;
+      $ver_js  = null;
+    } else {
+      $base = plugin_dir_url(__FILE__) . 'assets/';
+      $css  = plugin_dir_path(__FILE__) . 'assets/knowledge-hub.css';
+      $js   = plugin_dir_path(__FILE__) . 'assets/knowledge-hub.js';
+      $ver_css = file_exists($css) ? filemtime($css) : null;
+      $ver_js  = file_exists($js) ? filemtime($js) : null;
+    }
 
     wp_enqueue_style('mtech-kh-style', $base . 'knowledge-hub.css', [], $ver_css);
     wp_enqueue_script('mtech-kh-app', $base . 'knowledge-hub.js', [], $ver_js, true);
+    // Ensure ESM bundle loads as module when served remotely or locally
+    if (function_exists('wp_script_add_data')) {
+      wp_script_add_data('mtech-kh-app', 'type', 'module');
+    }
   }
 }
 
