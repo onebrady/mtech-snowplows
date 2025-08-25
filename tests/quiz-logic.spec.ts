@@ -8,19 +8,26 @@ test.describe("Quiz logic (test hook)", () => {
 
     const A = await page.evaluate(() => {
       // @ts-ignore
-      return window.__quizCompute?.({ vehicle_class: "heavy", priority: "capacity" })?.primary;
+      return window.__quizCompute?.({
+        primary_environment: "urban",
+        vehicle_class: "heavy",
+        obstacle_frequency: "frequent",
+      })?.primary;
     });
     const B = await page.evaluate(() => {
       // @ts-ignore
-      return window.__quizCompute?.({ surface_type: "lot", priority: "precision" })?.primary;
+      return window.__quizCompute?.({
+        primary_environment: "highway",
+        vehicle_class: "heavy",
+      })?.primary;
     });
     const C = await page.evaluate(() => {
       // @ts-ignore
-      return window.__quizCompute?.({ snow_amount: "gt6" })?.primary;
+      return window.__quizCompute?.({ vehicle_class: "medium" })?.primary;
     });
     const D = await page.evaluate(() => {
       // @ts-ignore
-      return window.__quizCompute?.({ salt_strategy: "liquid" })?.primary;
+      return window.__quizCompute?.({ required_capabilities: "complete" })?.primary;
     });
 
     expect(A).toBe("A");
@@ -29,5 +36,3 @@ test.describe("Quiz logic (test hook)", () => {
     expect(D).toBe("D");
   });
 });
-
-

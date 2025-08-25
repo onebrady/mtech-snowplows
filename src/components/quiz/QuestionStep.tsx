@@ -13,7 +13,7 @@ export function QuestionStep({
     <fieldset aria-describedby={`${question.id}-hint`}>
       <legend className="font-medium">{question.title}</legend>
       <p id={`${question.id}-hint`} className="sr-only">
-        Choose one option.
+        {question.description || "Choose one option."}
       </p>
       <div className="mt-3 flex flex-col gap-2">
         {question.options.map((opt) => (

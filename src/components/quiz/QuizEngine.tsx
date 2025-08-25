@@ -28,57 +28,64 @@ const STORAGE_KEY = "mtech.quiz.session";
 
 const QUESTIONS: QuizQuestion[] = [
   {
+    id: "primary_environment",
+    title: "What type of areas will you primarily be clearing?",
+    description:
+      "Urban areas have more obstacles; highways focus on speed and width coverage.",
+    options: [
+      { id: "env_urban", label: "Urban streets and city roads", value: "urban" },
+      { id: "env_highway", label: "Highways and rural roads", value: "highway" },
+      { id: "env_open", label: "Large open areas (lots, airports)", value: "open" },
+      { id: "env_mixed", label: "Mixed applications", value: "mixed" },
+    ],
+  },
+  {
     id: "vehicle_class",
-    title: "What vehicle class are you outfitting?",
+    title: "What class of vehicle will you be using?",
     options: [
-      { id: "vc_light", label: "Light/1-ton pickup", value: "light" },
-      { id: "vc_medium", label: "Medium", value: "medium" },
-      { id: "vc_heavy", label: "Heavy", value: "heavy" },
+      { id: "vc_medium", label: "Medium-duty (Class 4-6)", value: "medium" },
+      { id: "vc_heavy", label: "Heavy-duty (Class 7-8)", value: "heavy" },
     ],
   },
   {
-    id: "plow_width",
-    title: "Preferred plow width?",
+    id: "obstacle_frequency",
+    title: "How often will you encounter obstacles like curbs or manholes?",
     options: [
-      { id: "pw_8", label: "~8 ft", value: "8" },
-      { id: "pw_10", label: "~10 ft", value: "10" },
-      { id: "pw_12", label: "~12 ft", value: "12" },
+      { id: "ob_freq", label: "Frequently (urban routes, tight spaces)", value: "frequent" },
+      { id: "ob_some", label: "Occasionally (mixed terrain)", value: "occasional" },
+      { id: "ob_rare", label: "Rarely (mostly open areas)", value: "rare" },
     ],
   },
   {
-    id: "surface_type",
-    title: "Primary surface type?",
+    id: "required_capabilities",
+    title: "Which capabilities do you need?",
+    description: "Consider your full winter operation needs.",
     options: [
-      { id: "st_road", label: "Roads", value: "road" },
-      { id: "st_lot", label: "Lots/campus", value: "lot" },
-      { id: "st_runway", label: "Runway/long", value: "runway" },
+      { id: "cap_plow", label: "Snow plowing only", value: "plow_only" },
+      { id: "cap_plow_spreader", label: "Plow + Spreader", value: "plow_spreader" },
+      { id: "cap_plow_underbody", label: "Plow + Underbody", value: "plow_underbody" },
+      {
+        id: "cap_complete",
+        label: "Complete winter maintenance (plow + spread + scrape)",
+        value: "complete",
+      },
     ],
   },
   {
-    id: "snow_amount",
-    title: "Typical snowfall per event?",
+    id: "multi_lane",
+    title: "Do you need to clear multiple lanes or extra-wide areas in single passes?",
     options: [
-      { id: "sa_lt2", label: "< 2 in", value: "lt2" },
-      { id: "sa_2to6", label: "2 – 6 in", value: "2to6" },
-      { id: "sa_gt6", label: "> 6 in", value: "gt6" },
+      { id: "ml_yes", label: "Yes, maximum width coverage", value: "yes" },
+      { id: "ml_no", label: "No, single-lane focus", value: "no" },
     ],
   },
   {
-    id: "priority",
-    title: "Operational priority?",
+    id: "snow_profile",
+    title: "What's your typical snow profile?",
     options: [
-      { id: "pr_speed", label: "Speed", value: "speed" },
-      { id: "pr_capacity", label: "Capacity", value: "capacity" },
-      { id: "pr_precision", label: "Precision", value: "precision" },
-    ],
-  },
-  {
-    id: "salt_strategy",
-    title: "Material use strategy?",
-    options: [
-      { id: "ss_sand", label: "Sand-heavy", value: "sand" },
-      { id: "ss_salt", label: "Salt", value: "salt" },
-      { id: "ss_liquid", label: "Pre-wet/liquids", value: "liquid" },
+      { id: "sp_heavy", label: "Heavy and frequent", value: "heavy" },
+      { id: "sp_moderate", label: "Moderate", value: "moderate" },
+      { id: "sp_light", label: "Light", value: "light" },
     ],
   },
 ];

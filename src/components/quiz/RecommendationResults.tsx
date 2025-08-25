@@ -3,6 +3,8 @@ import type { QuizResult } from "../../lib/quiz/types";
 import { emitAnalytics } from "../../lib/analytics";
 import { useEffect } from "react";
 import { ContactCapture } from "./ContactCapture";
+import { QUIZ_RESULTS } from "../../content/quiz-results";
+import { ResultCard } from "./ResultCard";
 
 const LITERATURE_LINKS: Record<string, { label: string; url: string }[]> = {
   A: [
@@ -41,21 +43,27 @@ export function RecommendationResults({ result }: { result: QuizResult }) {
     });
   }, [result.primary, result.alternatives]);
 
+  const primaryContent = QUIZ_RESULTS[result.primary];
+  const alternativeContents = result.alternatives
+    .map((c) => QUIZ_RESULTS[c])
+    .filter(Boolean);
+
   return (
     <section aria-labelledby="quiz-results">
       <h2 id="quiz-results" className="text-xl font-semibold">
         Your Recommendation: {result.primary}
       </h2>
       <p className="mt-2 text-slate-700">{result.rationale}</p>
+      {primaryContent && <ResultCard content={primaryContent} />}
 
       {result.alternatives.length > 0 && (
         <div className="mt-4">
           <h3 className="font-medium">Alternatives</h3>
-          <ul className="list-disc ml-5 text-slate-700">
-            {result.alternatives.map((alt) => (
-              <li key={alt}>Option {alt}</li>
+          <div className="mt-2 flex flex-col gap-2">
+            {alternativeContents.map((c) => (
+              <ResultCard key={c.code} content={c} />
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
