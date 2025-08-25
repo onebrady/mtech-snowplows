@@ -36,6 +36,19 @@ function mtech_kh_is_vite_running($url) {
   return !is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200;
 }
 
+function mtech_kh_asset_origin() {
+  $origin = defined('MTECH_KH_ASSET_ORIGIN') && MTECH_KH_ASSET_ORIGIN ? MTECH_KH_ASSET_ORIGIN : 'https://mtech-snowplows.vercel.app';
+  /**
+   * Filter the remote asset origin (defaults to the live Vercel app).
+   */
+  return rtrim(apply_filters('mtech_kh_asset_origin', $origin), '/');
+}
+
+function mtech_kh_remote_asset_available($url) {
+  $response = wp_remote_head($url, [ 'timeout' => 1.0 ]);
+  return !is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), [200, 304], true);
+}
+
 function mtech_kh_enqueue_assets() {
   if (is_admin()) { return; }
   if (!$GLOBALS['mtech_kh_shortcode_present']) { return; }
@@ -49,9 +62,10 @@ function mtech_kh_enqueue_assets() {
     wp_enqueue_script('mtech-kh-vite-client', $vite_client, [], null, true);
     wp_enqueue_script('mtech-kh-app', $vite_entry, ['mtech-kh-vite-client'], null, true);
   } else {
-    $use_remote = defined('MTECH_KH_ASSET_ORIGIN') && MTECH_KH_ASSET_ORIGIN;
-    if ($use_remote) {
-      $base = rtrim(MTECH_KH_ASSET_ORIGIN, '/') . '/';
+    $origin = mtech_kh_asset_origin();
+    $remote_js = $origin . '/knowledge-hub.js';
+    if ($origin && mtech_kh_remote_asset_available($remote_js)) {
+      $base = $origin . '/';
       $ver_css = null;
       $ver_js  = null;
     } else {
