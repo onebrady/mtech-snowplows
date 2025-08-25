@@ -4,6 +4,7 @@ import { LaneCoverageEstimator } from "../components/microtools/LaneCoverageEsti
 import { SaltUsageCalculator } from "../components/microtools/SaltUsageCalculator";
 import { QAList } from "../components/knowledge/QAList";
 import { TermsChips } from "../components/shared/TermsChips";
+import { FactCard } from "../components/shared/FactCard";
 import { FAQSchema } from "../components/seo/FAQSchema";
 import { KNOWLEDGE_SECTIONS, getSectionBySlug } from "../content/knowledge";
 
@@ -19,8 +20,11 @@ export default function KnowledgeSectionPage() {
     section.relatedSlugs?.includes(s.slug)
   );
 
-  const currentIndex = KNOWLEDGE_SECTIONS.findIndex((s) => s.slug === section.slug);
-  const prevSection = currentIndex > 0 ? KNOWLEDGE_SECTIONS[currentIndex - 1] : undefined;
+  const currentIndex = KNOWLEDGE_SECTIONS.findIndex(
+    (s) => s.slug === section.slug
+  );
+  const prevSection =
+    currentIndex > 0 ? KNOWLEDGE_SECTIONS[currentIndex - 1] : undefined;
   const nextSection =
     currentIndex >= 0 && currentIndex < KNOWLEDGE_SECTIONS.length - 1
       ? KNOWLEDGE_SECTIONS[currentIndex + 1]
@@ -43,6 +47,10 @@ export default function KnowledgeSectionPage() {
 
       {section.terms && section.terms.length > 0 && (
         <TermsChips terms={section.terms} />
+      )}
+
+      {section.factCardBullets && section.factCardBullets.length > 0 && (
+        <FactCard title={section.factCardTitle} bullets={section.factCardBullets} />
       )}
 
       {(section.hasLaneCoverageTool || section.hasSaltUsageTool) && (
