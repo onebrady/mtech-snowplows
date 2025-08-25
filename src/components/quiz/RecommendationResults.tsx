@@ -34,18 +34,19 @@ export function RecommendationResults({ result }: { result: QuizResult }) {
     { label: "Downloads", url: "#/downloads" },
   ];
 
+  useEffect(() => {
+    emitAnalytics("quiz_result_view", {
+      primary: result.primary,
+      alternatives: result.alternatives,
+    });
+  }, [result.primary, result.alternatives]);
+
   return (
     <section aria-labelledby="quiz-results">
       <h2 id="quiz-results" className="text-xl font-semibold">
         Your Recommendation: {result.primary}
       </h2>
       <p className="mt-2 text-slate-700">{result.rationale}</p>
-      {useEffect(() => {
-        emitAnalytics("quiz_result_view", {
-          primary: result.primary,
-          alternatives: result.alternatives,
-        });
-      }, [result.primary, result.alternatives])}
 
       {result.alternatives.length > 0 && (
         <div className="mt-4">

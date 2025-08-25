@@ -101,8 +101,8 @@ declare global {
 
 if (typeof window !== "undefined") {
   try {
-    // @ts-expect-error test-only exposure
-    window.__quizCompute = computeRecommendation;
+    (window as unknown as { __quizCompute?: (a: QuizAnswerMap) => QuizResult }).__quizCompute =
+      computeRecommendation;
   } catch {
     // no-op
   }

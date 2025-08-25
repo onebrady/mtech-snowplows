@@ -28,8 +28,29 @@ test.describe("Quiz flow", () => {
 
     const events = new Set((dataLayer || []).map((e) => e.event as string));
     expect(events.has("quiz_start")).toBeTruthy();
+    expect(events.has("quiz_step_view")).toBeTruthy();
+    expect(events.has("quiz_answer_select")).toBeTruthy();
+    expect(events.has("quiz_next")).toBeTruthy();
     expect(events.has("quiz_complete")).toBeTruthy();
     expect(events.has("quiz_result_view")).toBeTruthy();
+
+    // Literature link navigation works
+    const firstLink = page.locator("ul li a").first();
+    const href = await firstLink.getAttribute("href");
+    await firstLink.click();
+    await page.waitForTimeout(100);
+    await expect(page).toHaveURL(/#\//);
+
+    // Contact capture analytics
+    await page.goBack();
+    await page.waitForTimeout(100);
+    await page.getByRole("textbox", { name: /email/i }).fill("user@example.com");
+    await page.getByRole("button", { name: /send/i }).click();
+    const dataLayer2 = await page.evaluate(() => {
+      // @ts-ignore
+      return window.dataLayer as Array<Record<string, unknown>>;
+    });
+    expect(dataLayer2.some((e) => e.event === "quiz_contact_submit")).toBeTruthy();
   });
 
   test("resume after reload", async ({ page }) => {
