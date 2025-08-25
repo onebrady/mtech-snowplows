@@ -2,6 +2,7 @@ import { ArrowRight, Stars } from "lucide-react";
 import { Link } from "react-router-dom";
 import { TrustIndicators } from "../shared/TrustIndicators";
 import { resolveHeroImage } from "../../lib/assets";
+import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   const hero = resolveHeroImage();
@@ -33,18 +34,19 @@ export function HeroSection() {
             </picture>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              to="/quiz"
-              className="inline-flex items-center gap-2 rounded-md btn-primary border px-4 py-2 text-sm font-medium"
-            >
-              Get Equipment Recommendations <ArrowRight className="h-4 w-4" />
-            </Link>
-            <a
-              href="#knowledge-grid"
-              className="inline-flex items-center gap-2 rounded-md border border-brand text-brand px-4 py-2 text-sm font-medium hover:bg-slate-50"
-            >
-              Scroll to Topics
-            </a>
+            <Button asChild>
+              <Link to="/quiz" className="inline-flex items-center gap-2">
+                Get Equipment Recommendations <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
+              <a
+                href="#knowledge-grid"
+                className="inline-flex items-center gap-2"
+              >
+                Scroll to Topics
+              </a>
+            </Button>
           </div>
         </div>
       </div>

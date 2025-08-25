@@ -5,7 +5,7 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:5173/#/";
 test.describe("Quiz flow", () => {
   test("complete flow and see results + analytics", async ({ page }) => {
     await page.addInitScript(() => {
-      // @ts-ignore
+      // @ts-expect-error test-only analytics shim
       window.dataLayer = [];
     });
     await page.goto(BASE_URL + "quiz", { waitUntil: "domcontentloaded" });
@@ -24,7 +24,7 @@ test.describe("Quiz flow", () => {
     ).toBeVisible();
 
     const dataLayer = await page.evaluate(() => {
-      // @ts-ignore
+      // @ts-expect-error test-only analytics shim
       return window.dataLayer as Array<Record<string, unknown>>;
     });
 
@@ -37,10 +37,12 @@ test.describe("Quiz flow", () => {
     expect(events.has("quiz_result_view")).toBeTruthy();
 
     // Contact capture analytics
-    await page.getByRole("textbox", { name: /email/i }).fill("user@example.com");
+    await page
+      .getByRole("textbox", { name: /email/i })
+      .fill("user@example.com");
     await page.getByRole("button", { name: /send/i }).click();
     const dataLayer2 = await page.evaluate(() => {
-      // @ts-ignore
+      // @ts-expect-error test-only analytics shim
       return window.dataLayer as Array<Record<string, unknown>>;
     });
     expect(
@@ -52,7 +54,9 @@ test.describe("Quiz flow", () => {
     await firstLink.click();
     await page.waitForTimeout(100);
     const url = page.url();
-    expect(url.includes("downloads") || url.includes("#/section/")).toBeTruthy();
+    expect(
+      url.includes("downloads") || url.includes("#/section/")
+    ).toBeTruthy();
   });
 
   test("resume after reload", async ({ page }) => {

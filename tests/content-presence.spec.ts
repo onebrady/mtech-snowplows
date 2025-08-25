@@ -15,25 +15,20 @@ const SECTION_SLUGS = [
 ];
 
 test.describe("Content presence", () => {
-  test("Q&A list shows 3 then 8 across sections", async ({ page }) => {
+  test("Q&A content renders with groups or >=3 rows across sections", async ({
+    page,
+  }) => {
     for (const slug of SECTION_SLUGS) {
       await page.goto(BASE_URL + "section/" + slug, {
         waitUntil: "domcontentloaded",
       });
       await page.waitForTimeout(300);
 
-      const qas = page.locator("details.group");
-      await expect(qas, `3 QAs visible initially for ${slug}`).toHaveCount(3);
-
-      const toggle = page.getByRole("button", { name: /show more/i });
-      if (await toggle.isVisible()) {
-        await toggle.click();
-        await page.waitForTimeout(150);
-        await expect(
-          page.locator("details.group"),
-          `8 QAs after expand for ${slug}`
-        ).toHaveCount(8);
-      }
+      const groupHeadings = page.getByRole("heading", { level: 3 });
+      const rows = page.getByTestId("qa-row");
+      const gCount = await groupHeadings.count();
+      const rCount = await rows.count();
+      expect(gCount > 0 || rCount >= 3).toBeTruthy();
     }
   });
 

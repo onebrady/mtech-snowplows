@@ -9,6 +9,12 @@ import { FAQSchema } from "../components/seo/FAQSchema";
 import { HowToSchema } from "../components/seo/HowToSchema";
 import { Checklist } from "../components/shared/Checklist";
 import { KNOWLEDGE_SECTIONS, getSectionBySlug } from "../content/knowledge";
+import {
+  GroupedQA,
+  JumpNav,
+  type QAGroup,
+} from "@/components/knowledge/GroupedQA";
+import { Button } from "@/components/ui/button";
 
 export default function KnowledgeSectionPage() {
   const { slug = "" } = useParams();
@@ -36,22 +42,109 @@ export default function KnowledgeSectionPage() {
     <main className="mx-auto max-w-7xl px-4 py-8">
       <FAQSchema title={section.title} items={section.qas} />
       {section.checklist && section.checklist.items.length > 0 && (
-        <HowToSchema title={section.checklist.title} items={section.checklist.items} />
+        <HowToSchema
+          title={section.checklist.title}
+          items={section.checklist.items}
+        />
       )}
       <nav className="text-sm mb-4">
         <Link to="/" className="hover:underline">
           ← Back to Knowledge Hub
         </Link>
       </nav>
-      <h1 className="text-2xl font-bold">{section.title}</h1>
-      <p className="text-slate-600 mt-1">{section.preview}</p>
+      <h1 className="text-[24px] font-bold leading-tight">{section.title}</h1>
+      <p className="text-slate-600 mt-2">
+        {section.slug === "spreaders-101"
+          ? "Essential knowledge for winter road maintenance equipment"
+          : section.preview}
+      </p>
 
-      <div className="mt-6">
-        <QAList items={section.qas} />
-      </div>
+      {/* Use grouped layout when groups provided or for spreaders-101 template */}
+      {section.slug === "spreaders-101" || section.groups?.length ? (
+        <>
+          <div className="mt-12">
+            <JumpNav
+              groups={
+                section.slug === "spreaders-101"
+                  ? ([
+                      {
+                        id: "equip",
+                        title: "Equipment Selection",
+                        qaIds: ["spreaders-q1", "spreaders-q4"],
+                      },
+                      {
+                        id: "rates",
+                        title: "Application Rates & Calibration",
+                        qaIds: ["spreaders-q2", "spreaders-q3"],
+                      },
+                      {
+                        id: "materials",
+                        title: "Materials & Liquids",
+                        qaIds: ["spreaders-q5", "spreaders-q6"],
+                      },
+                      {
+                        id: "maintenance",
+                        title: "Maintenance & Monitoring",
+                        qaIds: ["spreaders-q7", "spreaders-q8"],
+                      },
+                    ] as QAGroup[])
+                  : (section.groups as QAGroup[])
+              }
+            />
+          </div>
+          <div className="mt-6">
+            <GroupedQA
+              groups={
+                section.slug === "spreaders-101"
+                  ? [
+                      {
+                        id: "equip",
+                        title: "Equipment Selection & Setup",
+                        qaIds: ["spreaders-q1", "spreaders-q4"],
+                      },
+                      {
+                        id: "rates",
+                        title: "Application Rates & Calibration",
+                        qaIds: ["spreaders-q2", "spreaders-q3"],
+                      },
+                      {
+                        id: "materials",
+                        title: "Materials & Liquids",
+                        qaIds: ["spreaders-q5", "spreaders-q6"],
+                      },
+                      {
+                        id: "maintenance",
+                        title: "Maintenance & Monitoring",
+                        qaIds: ["spreaders-q7", "spreaders-q8"],
+                      },
+                    ]
+                  : (section.groups as QAGroup[])
+              }
+              items={section.qas}
+            />
+          </div>
+        </>
+      ) : (
+        <div className="mt-6">
+          <QAList items={section.qas} />
+        </div>
+      )}
 
       {section.terms && section.terms.length > 0 && (
         <TermsChips terms={section.terms} />
+      )}
+
+      {section.slug === "spreaders-101" && (
+        <div className="mt-10 rounded-md border p-4">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div className="text-sm">
+              Need a tailored equipment recommendation?
+            </div>
+            <Button asChild>
+              <Link to="/quiz">Start Equipment Quiz</Link>
+            </Button>
+          </div>
+        </div>
       )}
 
       {section.factCardBullets && section.factCardBullets.length > 0 && (
@@ -69,7 +162,10 @@ export default function KnowledgeSectionPage() {
       )}
 
       {section.checklist && section.checklist.items.length > 0 && (
-        <Checklist title={section.checklist.title} items={section.checklist.items} />
+        <Checklist
+          title={section.checklist.title}
+          items={section.checklist.items}
+        />
       )}
 
       {section.downloads && section.downloads.length > 0 && (

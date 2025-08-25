@@ -55,6 +55,22 @@ export const ProcurementFleet: KnowledgeSection = {
         "Pilot new controls or wings on a few beats with tight telemetry and operator feedback before large buys.",
     },
   ],
+  groups: [
+    {
+      id: "evaluation",
+      title: "Evaluation & TCO",
+      qaIds: ["proc-q1", "proc-q7"],
+    },
+    { id: "specs", title: "Spec Writing & Compliance", qaIds: ["proc-q2"] },
+    {
+      id: "platforms",
+      title: "Standardization & Lifecycle",
+      qaIds: ["proc-q3", "proc-q6"],
+    },
+    { id: "support", title: "Warranty & Support", qaIds: ["proc-q4"] },
+    { id: "planning", title: "Lead Times & Funding", qaIds: ["proc-q5"] },
+    { id: "pilots", title: "Pilots & Demos", qaIds: ["proc-q8"] },
+  ],
   terms: ["TCO", "RFQ", "Cooperative Contracts", "KPI"],
   relatedSlugs: ["fit-compliance", "controls-101"],
   factCardTitle: "MTech value",

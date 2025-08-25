@@ -40,7 +40,6 @@ export function QAList({ items }: { items: QAItem[] }) {
         .filter(Boolean).length;
       const linkCount = (qa.answer.match(/<a\b[^>]*>/gi) || []).length;
       if (wordCount > 120 || linkCount > 1) {
-        // eslint-disable-next-line no-console
         console.warn("QA validation warning", {
           id: qa.id,
           wordCount,

@@ -2,6 +2,12 @@ import { Link } from "react-router-dom";
 import * as Icons from "lucide-react";
 import type { ComponentType } from "react";
 import { KNOWLEDGE_SECTIONS } from "../../content/knowledge";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { emitAnalytics } from "../../lib/analytics";
 
 function IconByName({ name, className }: { name: string; className?: string }) {
@@ -23,39 +29,54 @@ export function KnowledgeGrid() {
           <Link
             key={s.slug}
             to={`/section/${s.slug}`}
-            className="group rounded-lg border p-4 hover:shadow-sm transition bg-white"
+            className="group block transition"
             onClick={() =>
               emitAnalytics("tile_click", { slug: s.slug, title: s.title })
             }
           >
-            <div className="flex items-start gap-3">
-              <span className="rounded-md bg-slate-100 p-2 text-slate-700">
-                <IconByName name={s.icon} className="h-5 w-5" />
-              </span>
-              <div>
-                <h3 className="font-semibold group-hover:underline">
-                  {s.title}
-                </h3>
-                <p className="text-sm text-slate-600 mt-1">{s.preview}</p>
-              </div>
-            </div>
+            <Card className="hover:shadow-sm">
+              <CardHeader className="flex-row items-start gap-3 p-4">
+                <span className="rounded-md bg-muted p-2 text-foreground/80">
+                  <IconByName name={s.icon} className="h-5 w-5" />
+                </span>
+                <div>
+                  <CardTitle className="group-hover:underline">
+                    {s.title}
+                  </CardTitle>
+                  <CardDescription className="mt-1">
+                    {s.preview}
+                  </CardDescription>
+                </div>
+              </CardHeader>
+            </Card>
           </Link>
         ))}
         {/* Quiz entry */}
         <Link
           to="/quiz"
-          className="group rounded-lg border p-4 hover:shadow-sm transition bg-white"
-          onClick={() => emitAnalytics("tile_click", { slug: "quiz", title: "Equipment Fit Quiz" })}
+          className="group block transition"
+          onClick={() =>
+            emitAnalytics("tile_click", {
+              slug: "quiz",
+              title: "Equipment Fit Quiz",
+            })
+          }
         >
-          <div className="flex items-start gap-3">
-            <span className="rounded-md bg-slate-100 p-2 text-slate-700">
-              <Icons.ListChecks className="h-5 w-5" />
-            </span>
-            <div>
-              <h3 className="font-semibold group-hover:underline">Equipment Fit Quiz</h3>
-              <p className="text-sm text-slate-600 mt-1">Six steps to a tailored recommendation.</p>
-            </div>
-          </div>
+          <Card className="hover:shadow-sm">
+            <CardHeader className="flex-row items-start gap-3 p-4">
+              <span className="rounded-md bg-muted p-2 text-foreground/80">
+                <Icons.ListChecks className="h-5 w-5" />
+              </span>
+              <div>
+                <CardTitle className="group-hover:underline">
+                  Equipment Fit Quiz
+                </CardTitle>
+                <CardDescription className="mt-1">
+                  Six steps to a tailored recommendation.
+                </CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
         </Link>
       </div>
     </section>

@@ -55,6 +55,18 @@ export const FitCompliance: KnowledgeSection = {
         "Keep weight tickets, as-built wiring/hydraulic diagrams, and operator manuals with the vehicle file for DOT and insurance.",
     },
   ],
+  groups: [
+    { id: "weights", title: "Weights & Loads", qaIds: ["fit-q1", "fit-q5"] },
+    {
+      id: "hydraulics",
+      title: "Hydraulics & Power",
+      qaIds: ["fit-q2", "fit-q7"],
+    },
+    { id: "lighting", title: "Lighting & Visibility", qaIds: ["fit-q3"] },
+    { id: "corrosion", title: "Materials & Corrosion", qaIds: ["fit-q4"] },
+    { id: "ergonomics", title: "Ergonomics & Safety", qaIds: ["fit-q6"] },
+    { id: "docs", title: "Documentation & Audits", qaIds: ["fit-q8"] },
+  ],
   terms: ["GVWR", "FAWR", "RAWR", "PTO", "FMVSS"],
   relatedSlugs: ["plows-101", "procurement-fleet"],
   checklist: {
@@ -69,4 +81,10 @@ export const FitCompliance: KnowledgeSection = {
       "Document approvals and as-built diagrams",
     ],
   },
+  downloads: [
+    {
+      label: "ARM Dump Body PDF",
+      href: "/wp-content/uploads/2025/05/ARM-TruckCorp-Dump-Body.pdf",
+    },
+  ],
 };

@@ -1,4 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { Info } from "lucide-react";
 import { getTermDefinition } from "../../content/glossary";
 
 export function TermsChips({ terms }: { terms: string[] }) {
@@ -15,20 +16,21 @@ export function TermsChips({ terms }: { terms: string[] }) {
                 <Tooltip.Trigger asChild>
                   <button
                     type="button"
-                    className="rounded-full border px-3 py-1 bg-white hover:bg-slate-50"
+                    className="rounded-full border px-3 py-1 bg-muted text-foreground/80 hover:bg-muted/80 inline-flex items-center gap-2"
                     aria-label={def ? `${term}: ${def}` : term}
                   >
                     {term}
+                    {def && <Info className="h-3 w-3 text-muted-foreground" />}
                   </button>
                 </Tooltip.Trigger>
                 {def && (
                   <Tooltip.Portal>
                     <Tooltip.Content
-                      className="max-w-xs rounded-md border bg-white px-3 py-2 text-xs text-slate-700 shadow"
+                      className="max-w-xs rounded-md border bg-card px-3 py-2 text-xs text-foreground shadow"
                       sideOffset={6}
                     >
                       {def}
-                      <Tooltip.Arrow className="fill-white" />
+                      <Tooltip.Arrow className="fill-card" />
                     </Tooltip.Content>
                   </Tooltip.Portal>
                 )}
@@ -40,5 +42,3 @@ export function TermsChips({ terms }: { terms: string[] }) {
     </div>
   );
 }
-
-

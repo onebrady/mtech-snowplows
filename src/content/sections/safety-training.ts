@@ -55,6 +55,18 @@ export const SafetyTraining: KnowledgeSection = {
         "Near misses, equipment failures, salt usage vs. targets, and route congestion to improve next operations.",
     },
   ],
+  groups: [
+    { id: "operator", title: "Operator Safety", qaIds: ["safe-q1"] },
+    { id: "pretrip", title: "Pre-Trip & Equipment Checks", qaIds: ["safe-q2"] },
+    { id: "training", title: "Certifications & Training", qaIds: ["safe-q3"] },
+    {
+      id: "traffic",
+      title: "PPE & Traffic Safety",
+      qaIds: ["safe-q4", "safe-q5", "safe-q7"],
+    },
+    { id: "fatigue", title: "Fatigue & Shift Management", qaIds: ["safe-q6"] },
+    { id: "debrief", title: "Post-Storm Debrief", qaIds: ["safe-q8"] },
+  ],
   terms: ["PPE", "Three-Point Contact", "NIMS", "ICS"],
   relatedSlugs: ["plows-101", "telematics-maintenance"],
   checklist: {

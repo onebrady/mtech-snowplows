@@ -55,6 +55,22 @@ export const EnvironmentalCompliance: KnowledgeSection = {
         "Publish season summaries with lane-miles treated, salt/ton reductions, and safety outcomes using telematics data for credibility.",
     },
   ],
+  groups: [
+    { id: "planning", title: "Programs & Planning", qaIds: ["env-q2"] },
+    {
+      id: "strategy",
+      title: "Strategy & Liquids",
+      qaIds: ["env-q1", "env-q6"],
+    },
+    { id: "materials", title: "Materials & Alternatives", qaIds: ["env-q5"] },
+    { id: "storage", title: "Storage & Containment", qaIds: ["env-q3"] },
+    {
+      id: "reporting",
+      title: "Reporting & Communication",
+      qaIds: ["env-q4", "env-q8"],
+    },
+    { id: "training", title: "Training & Operations", qaIds: ["env-q7"] },
+  ],
   terms: ["Pre-wet", "Anti-ice", "BMPs", "Secondary Containment"],
   hasSaltUsageTool: true,
   relatedSlugs: ["spreaders-101", "telematics-maintenance"],

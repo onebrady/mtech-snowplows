@@ -10,6 +10,7 @@ export type KnowledgeSection = {
   preview: string;
   icon: string; // lucide icon name
   qas: QAItem[];
+  groups?: { id: string; title: string; qaIds: string[] }[];
   terms?: string[];
   hasLaneCoverageTool?: boolean;
   hasSaltUsageTool?: boolean;

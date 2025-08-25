@@ -7,7 +7,7 @@ test.describe("Quiz logic (test hook)", () => {
     await page.goto(BASE_URL + "quiz", { waitUntil: "domcontentloaded" });
 
     const A = await page.evaluate(() => {
-      // @ts-ignore
+      // @ts-expect-error window test hook
       return window.__quizCompute?.({
         primary_environment: "urban",
         vehicle_class: "heavy",
@@ -15,19 +15,20 @@ test.describe("Quiz logic (test hook)", () => {
       })?.primary;
     });
     const B = await page.evaluate(() => {
-      // @ts-ignore
+      // @ts-expect-error window test hook
       return window.__quizCompute?.({
         primary_environment: "highway",
         vehicle_class: "heavy",
       })?.primary;
     });
     const C = await page.evaluate(() => {
-      // @ts-ignore
+      // @ts-expect-error window test hook
       return window.__quizCompute?.({ vehicle_class: "medium" })?.primary;
     });
     const D = await page.evaluate(() => {
-      // @ts-ignore
-      return window.__quizCompute?.({ required_capabilities: "complete" })?.primary;
+      // @ts-expect-error window test hook
+      return window.__quizCompute?.({ required_capabilities: "complete" })
+        ?.primary;
     });
 
     expect(A).toBe("A");
