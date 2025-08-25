@@ -19,6 +19,13 @@ export default function KnowledgeSectionPage() {
     section.relatedSlugs?.includes(s.slug)
   );
 
+  const currentIndex = KNOWLEDGE_SECTIONS.findIndex((s) => s.slug === section.slug);
+  const prevSection = currentIndex > 0 ? KNOWLEDGE_SECTIONS[currentIndex - 1] : undefined;
+  const nextSection =
+    currentIndex >= 0 && currentIndex < KNOWLEDGE_SECTIONS.length - 1
+      ? KNOWLEDGE_SECTIONS[currentIndex + 1]
+      : undefined;
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">
       <FAQSchema title={section.title} items={section.qas} />
@@ -80,6 +87,33 @@ export default function KnowledgeSectionPage() {
             ))}
           </div>
         </div>
+      )}
+
+      {(prevSection || nextSection) && (
+        <nav className="mt-10 flex items-center justify-between text-sm">
+          <div>
+            {prevSection && (
+              <Link
+                to={`/section/${prevSection.slug}`}
+                className="inline-flex items-center gap-2 rounded-md border px-3 py-2 hover:bg-slate-50"
+                aria-label={`Previous: ${prevSection.title}`}
+              >
+                ← {prevSection.title}
+              </Link>
+            )}
+          </div>
+          <div>
+            {nextSection && (
+              <Link
+                to={`/section/${nextSection.slug}`}
+                className="inline-flex items-center gap-2 rounded-md border px-3 py-2 hover:bg-slate-50"
+                aria-label={`Next: ${nextSection.title}`}
+              >
+                {nextSection.title} →
+              </Link>
+            )}
+          </div>
+        </nav>
       )}
     </main>
   );
