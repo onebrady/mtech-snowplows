@@ -1,8 +1,10 @@
 import { ArrowRight, Stars } from "lucide-react";
 import { Link } from "react-router-dom";
 import { TrustIndicators } from "../shared/TrustIndicators";
+import { resolveHeroImage } from "../../lib/assets";
 
 export function HeroSection() {
+  const hero = resolveHeroImage();
   return (
     <section className="bg-hero border-b">
       <div className="mx-auto max-w-7xl px-4 py-12 md:py-16">
@@ -18,18 +20,15 @@ export function HeroSection() {
           <TrustIndicators />
           <div className="mt-6">
             <picture>
-              <source
-                srcSet="/wp-content/uploads/hero-knowledge-hub-640.webp 640w, /wp-content/uploads/hero-knowledge-hub-1024.webp 1024w, /wp-content/uploads/hero-knowledge-hub.webp 1600w"
-                type="image/webp"
-              />
+              <source srcSet={hero.webpSrcSet} type="image/webp" />
               <img
-                src="/hero-knowledge-hub.svg"
+                src={hero.fallbackSrc}
                 alt="ARM municipal front plow in urban snow removal service"
                 loading="eager"
                 decoding="async"
                 className="h-32 w-auto md:h-40"
                 sizes="(max-width: 640px) 60vw, (max-width: 1024px) 40vw, 33vw"
-                srcSet="/hero-knowledge-hub.svg 800w"
+                srcSet={hero.fallbackSrcSet}
               />
             </picture>
           </div>
