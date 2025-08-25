@@ -6,6 +6,8 @@ import { QAList } from "../components/knowledge/QAList";
 import { TermsChips } from "../components/shared/TermsChips";
 import { FactCard } from "../components/shared/FactCard";
 import { FAQSchema } from "../components/seo/FAQSchema";
+import { HowToSchema } from "../components/seo/HowToSchema";
+import { Checklist } from "../components/shared/Checklist";
 import { KNOWLEDGE_SECTIONS, getSectionBySlug } from "../content/knowledge";
 
 export default function KnowledgeSectionPage() {
@@ -33,6 +35,9 @@ export default function KnowledgeSectionPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">
       <FAQSchema title={section.title} items={section.qas} />
+      {section.checklist && section.checklist.items.length > 0 && (
+        <HowToSchema title={section.checklist.title} items={section.checklist.items} />
+      )}
       <nav className="text-sm mb-4">
         <Link to="/" className="hover:underline">
           ← Back to Knowledge Hub
@@ -50,7 +55,10 @@ export default function KnowledgeSectionPage() {
       )}
 
       {section.factCardBullets && section.factCardBullets.length > 0 && (
-        <FactCard title={section.factCardTitle} bullets={section.factCardBullets} />
+        <FactCard
+          title={section.factCardTitle}
+          bullets={section.factCardBullets}
+        />
       )}
 
       {(section.hasLaneCoverageTool || section.hasSaltUsageTool) && (
@@ -58,6 +66,10 @@ export default function KnowledgeSectionPage() {
           {section.hasLaneCoverageTool && <LaneCoverageEstimator />}
           {section.hasSaltUsageTool && <SaltUsageCalculator />}
         </div>
+      )}
+
+      {section.checklist && section.checklist.items.length > 0 && (
+        <Checklist title={section.checklist.title} items={section.checklist.items} />
       )}
 
       {section.downloads && section.downloads.length > 0 && (

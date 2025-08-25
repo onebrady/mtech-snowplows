@@ -17,4 +17,8 @@ export type KnowledgeSection = {
   downloads?: { label: string; href: string }[];
   factCardTitle?: string;
   factCardBullets?: string[];
+  checklist?: {
+    title: string;
+    items: string[];
+  };
 };
