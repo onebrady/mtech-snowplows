@@ -22,3 +22,30 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Test artifacts
+test-results/
+tests/__screenshots__/
+
+# Build artifacts  
+knowledge-hub/dist/
+wp-plugin/mtech-knowledge-hub/assets/
+
+# Plugin archives
+wp-plugin/*.zip
+
+# Duplicate structures
+knowledge-hub/
+
+# Large files and images (token reduction)
+*.png
+*.jpg
+*.jpeg
+*.gif
+mtech_snowplow_prd.md
+homepage-screenshot.png
+
+# Documentation and development files
+docs/
+.agent-os/
+wp-local/
