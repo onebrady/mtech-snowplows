@@ -53,7 +53,7 @@ test.describe("Console/network hygiene", () => {
       if (status >= 400) failed.push({ url: resp.url(), status });
     });
 
-    await page.goto(BASE_URL + "section/plows-101", {
+    await page.goto(BASE_URL + "section/equipment", {
       waitUntil: "domcontentloaded",
     });
     await page.waitForTimeout(1000);

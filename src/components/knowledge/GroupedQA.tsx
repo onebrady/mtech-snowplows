@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import type { QAItem } from "@/content/types";
 import { HelpCircle } from "lucide-react";
 
@@ -100,24 +101,22 @@ export function JumpNav({ groups }: { groups: QAGroup[] }) {
       role="navigation"
       aria-label="JumpNav"
     >
-      <div className="flex items-center gap-3 flex-wrap">
-        <span className="font-medium text-foreground/80 mr-2">Jump to:</span>
-        {groups.map((g) => (
-          <button
-            key={g.id}
-            onClick={handleJump(g.id)}
-            className={
-              "px-3 py-1.5 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background " +
-              (active === g.id
-                ? "bg-muted text-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground")
-            }
-            type="button"
-            aria-current={active === g.id ? "true" : undefined}
-          >
-            {g.title}
-          </button>
-        ))}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <span className="font-medium text-foreground/80 flex-shrink-0">Jump to:</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {groups.map((g) => (
+            <Button
+              key={g.id}
+              onClick={handleJump(g.id)}
+              variant={active === g.id ? "secondary" : "ghost"}
+              size="sm"
+              className="text-xs sm:text-sm flex-shrink-0"
+              aria-current={active === g.id ? "true" : undefined}
+            >
+              {g.title}
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   );

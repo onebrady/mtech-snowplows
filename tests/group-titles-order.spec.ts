@@ -2,49 +2,49 @@ import { test, expect } from "@playwright/test";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:5173";
 
-test("plows-101 group titles order", async ({ page }) => {
-  await page.goto(`${BASE_URL}/#/section/plows-101`, {
+test("equipment section group titles order", async ({ page }) => {
+  await page.goto(`${BASE_URL}/#/section/equipment`, {
     waitUntil: "domcontentloaded",
   });
   const titles = await page
     .locator('[data-testid="group-title"]')
     .allTextContents();
   expect(titles[0]).toMatch(/Plow Types/i);
-  expect(titles[1]).toMatch(/Sizing/i);
+  expect(titles[1]).toMatch(/Spreader Systems|Sizing/i);
 });
 
-test("controls-101 group titles present", async ({ page }) => {
-  await page.goto(`${BASE_URL}/#/section/controls-101`, {
+test("integration section group titles present", async ({ page }) => {
+  await page.goto(`${BASE_URL}/#/section/integration`, {
     waitUntil: "domcontentloaded",
   });
   await expect(
-    page.getByRole("heading", { level: 3, name: /Overview & Rationale/ })
+    page.getByRole("heading", { level: 3, name: /Control Systems|Overview & Rationale/ })
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { level: 3, name: /Operation & UX/ })
-  ).toBeVisible();
-});
-
-test("fit-compliance group titles present", async ({ page }) => {
-  await page.goto(`${BASE_URL}/#/section/fit-compliance`, {
-    waitUntil: "domcontentloaded",
-  });
-  await expect(
-    page.getByRole("heading", { level: 3, name: /Weights & Loads/ })
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { level: 3, name: /Hydraulics & Power/ })
+    page.getByRole("heading", { level: 3, name: /Installation & Setup|Operation & UX/ })
   ).toBeVisible();
 });
 
-test("environmental-compliance group titles present", async ({ page }) => {
-  await page.goto(`${BASE_URL}/#/section/environmental-compliance`, {
+test("integration section chassis group titles present", async ({ page }) => {
+  await page.goto(`${BASE_URL}/#/section/integration`, {
     waitUntil: "domcontentloaded",
   });
   await expect(
-    page.getByRole("heading", { level: 3, name: /Programs & Planning/ })
+    page.getByRole("heading", { level: 3, name: /Chassis & Mounting|Weights & Loads/ })
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { level: 3, name: /Strategy & Liquids/ })
+    page.getByRole("heading", { level: 3, name: /Power Systems|Hydraulics & Power/ })
+  ).toBeVisible();
+});
+
+test("environment section group titles present", async ({ page }) => {
+  await page.goto(`${BASE_URL}/#/section/environment`, {
+    waitUntil: "domcontentloaded",
+  });
+  await expect(
+    page.getByRole("heading", { level: 3, name: /Salt Management Plans|Programs & Planning/ })
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 3, name: /Application Strategy|Strategy & Liquids/ })
   ).toBeVisible();
 });

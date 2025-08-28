@@ -2,15 +2,12 @@ import { test, expect } from "@playwright/test";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:5173";
 const slugs = [
-  "plows-101",
-  "spreaders-101",
-  "controls-101",
-  "fit-compliance",
-  "environmental-compliance",
-  "telematics-maintenance",
-  "safety-training",
-  "procurement-fleet",
-  "regional-snapshots",
+  "equipment",
+  "integration", 
+  "operations",
+  "environment",
+  "procurement",
+  "technology",
 ];
 
 for (const slug of slugs) {

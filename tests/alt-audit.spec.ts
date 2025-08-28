@@ -19,7 +19,7 @@ test.describe("Alt text audit", () => {
   });
 
   test("section page images have alt text", async ({ page }) => {
-    await page.goto(BASE_URL + "section/plows-101", {
+    await page.goto(BASE_URL + "section/equipment", {
       waitUntil: "domcontentloaded",
     });
     await assertAllImgsHaveAlt(page);

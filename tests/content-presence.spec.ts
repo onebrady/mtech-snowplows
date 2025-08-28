@@ -3,15 +3,12 @@ import { test, expect } from "@playwright/test";
 const BASE_URL = process.env.BASE_URL || "http://localhost:5173/#/";
 
 const SECTION_SLUGS = [
-  "plows-101",
-  "spreaders-101",
-  "controls-101",
-  "fit-compliance",
-  "environmental-compliance",
-  "telematics-maintenance",
-  "safety-training",
-  "procurement-fleet",
-  "regional-snapshots",
+  "equipment",
+  "integration",
+  "operations",
+  "environment",
+  "procurement",
+  "technology",
 ];
 
 test.describe("Content presence", () => {
@@ -32,8 +29,8 @@ test.describe("Content presence", () => {
     }
   });
 
-  test("TermsChips present on Telematics section", async ({ page }) => {
-    await page.goto(BASE_URL + "section/telematics-maintenance", {
+  test("TermsChips present on Technology section", async ({ page }) => {
+    await page.goto(BASE_URL + "section/technology", {
       waitUntil: "domcontentloaded",
     });
     await expect(
@@ -42,8 +39,8 @@ test.describe("Content presence", () => {
     await expect(page.getByRole("button", { name: /AVL/i })).toBeVisible();
   });
 
-  test("FactCard present on Environmental Compliance", async ({ page }) => {
-    await page.goto(BASE_URL + "section/environmental-compliance", {
+  test("FactCard present on Environment section", async ({ page }) => {
+    await page.goto(BASE_URL + "section/environment", {
       waitUntil: "domcontentloaded",
     });
     await expect(
@@ -54,8 +51,8 @@ test.describe("Content presence", () => {
     ).toBeVisible();
   });
 
-  test("Checklist present on Fit & Compliance", async ({ page }) => {
-    await page.goto(BASE_URL + "section/fit-compliance", {
+  test("Checklist present on Integration section", async ({ page }) => {
+    await page.goto(BASE_URL + "section/integration", {
       waitUntil: "domcontentloaded",
     });
     await expect(

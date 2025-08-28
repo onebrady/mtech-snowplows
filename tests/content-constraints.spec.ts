@@ -11,15 +11,12 @@ type FaqQuestion = {
 type FaqPage = { "@type": "FAQPage"; mainEntity: FaqQuestion[] };
 
 const SECTION_SLUGS = [
-  "plows-101",
-  "spreaders-101",
-  "controls-101",
-  "fit-compliance",
-  "environmental-compliance",
-  "telematics-maintenance",
-  "safety-training",
-  "procurement-fleet",
-  "regional-snapshots",
+  "equipment",
+  "integration",
+  "operations", 
+  "environment",
+  "procurement",
+  "technology",
 ] as const;
 
 function countWords(html: string): number {
