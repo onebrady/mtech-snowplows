@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { runDevChecks } from "./lib/devChecks";
 import LandingPage from "./pages/LandingPage";
 import KnowledgeSectionPage from "./pages/KnowledgeSectionPage";
+import SinglePageKnowledgePage from "./pages/SinglePageKnowledgePage";
 import DownloadsPage from "./pages/DownloadsPage";
 import QuizPage from "./pages/QuizPage";
 import { Header } from "./components/layout/Header";
@@ -20,6 +21,7 @@ export default function App() {
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/knowledge" element={<SinglePageKnowledgePage />} />
             <Route path="/section/:slug" element={<KnowledgeSectionPage />} />
             <Route path="/downloads" element={<DownloadsPage />} />
             <Route path="/quiz" element={<QuizPage />} />
