@@ -1,4 +1,4 @@
-import { type KnowledgeSection } from "../types";
+import { type KnowledgeSection } from "../../types";
 
 export const TelematicsMaintenance: KnowledgeSection = {
   slug: "telematics-maintenance",

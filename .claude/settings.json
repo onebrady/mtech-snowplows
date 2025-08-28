@@ -7,7 +7,6 @@
       "Read(docs/internal/**)",
       "Read(pnpm-lock.yaml)",
       "Read(wp-local/**)",
-      "Read(.agent-os/**)",
       "Read(dist/**)",
       "Read(build/**)",
       "Read(.next/**)",

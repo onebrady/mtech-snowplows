@@ -1,9 +1,9 @@
 import { type KnowledgeSection } from "../types";
 
-export const EnvironmentalCompliance: KnowledgeSection = {
-  slug: "environmental-compliance",
-  title: "Environmental Compliance",
-  preview: "Smart practices save money and protect the environment",
+export const Environment: KnowledgeSection = {
+  slug: "environment", 
+  title: "Environment",
+  preview: "Salt management and environmental practices",
   icon: "Leaf",
   qas: [
     {
@@ -56,28 +56,39 @@ export const EnvironmentalCompliance: KnowledgeSection = {
     },
   ],
   groups: [
-    { id: "planning", title: "Programs & Planning", qaIds: ["env-q2"] },
     {
-      id: "strategy",
-      title: "Strategy & Liquids",
-      qaIds: ["env-q1", "env-q6"],
+      id: "salt-management-plans",
+      title: "Salt Management Plans",
+      qaIds: ["env-q2"],
     },
-    { id: "materials", title: "Materials & Alternatives", qaIds: ["env-q5"] },
-    { id: "storage", title: "Storage & Containment", qaIds: ["env-q3"] },
     {
-      id: "reporting",
+      id: "application-strategy", 
+      title: "Application Strategy",
+      qaIds: ["env-q1", "env-q6", "env-q7"],
+    },
+    {
+      id: "storage-containment",
+      title: "Storage & Containment", 
+      qaIds: ["env-q3"],
+    },
+    {
+      id: "reporting-communication",
       title: "Reporting & Communication",
       qaIds: ["env-q4", "env-q8"],
     },
-    { id: "training", title: "Training & Operations", qaIds: ["env-q7"] },
+    {
+      id: "materials-alternatives",
+      title: "Materials & Alternatives",
+      qaIds: ["env-q5"],
+    },
   ],
   terms: ["Pre-wet", "Anti-ice", "BMPs", "Secondary Containment"],
   hasSaltUsageTool: true,
-  relatedSlugs: ["spreaders-101", "telematics-maintenance"],
+  relatedSlugs: ["equipment", "technology", "operations"],
   factCardTitle: "Quick wins",
   factCardBullets: [
     "Pre-wet to reduce bounce/scatter",
-    "Prioritize bridges/grades",
+    "Prioritize bridges/grades", 
     "Monthly calibration in peak season",
   ],
 };

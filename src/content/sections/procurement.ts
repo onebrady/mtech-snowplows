@@ -1,9 +1,9 @@
 import { type KnowledgeSection } from "../types";
 
-export const ProcurementFleet: KnowledgeSection = {
-  slug: "procurement-fleet",
-  title: "Procurement & Fleet Strategy",
-  preview: "RFP/RFQ essentials and TCO vs. price",
+export const Procurement: KnowledgeSection = {
+  slug: "procurement",
+  title: "Procurement",
+  preview: "Purchasing, specs, and fleet strategy",
   icon: "BriefcaseBusiness",
   qas: [
     {
@@ -54,25 +54,54 @@ export const ProcurementFleet: KnowledgeSection = {
       answer:
         "Pilot new controls or wings on a few beats with tight telemetry and operator feedback before large buys.",
     },
+    // Business metrics from telematics (relevant to fleet strategy)
+    {
+      id: "tele-q6",
+      question: "Lane coverage and cycle times?",
+      answer:
+        "Use coverage estimations to plan beats and measure clearing progress versus targets during events.",
+    },
+    {
+      id: "tele-q7", 
+      question: "What about driver coaching?",
+      answer:
+        "Dash prompts and after-action reviews (speeds, idles, rates) reduce salt use and improve safety.",
+    },
   ],
   groups: [
     {
-      id: "evaluation",
+      id: "evaluation-tco",
       title: "Evaluation & TCO",
       qaIds: ["proc-q1", "proc-q7"],
     },
-    { id: "specs", title: "Spec Writing & Compliance", qaIds: ["proc-q2"] },
     {
-      id: "platforms",
-      title: "Standardization & Lifecycle",
+      id: "specification-writing",
+      title: "Specification Writing",
+      qaIds: ["proc-q2"],
+    },
+    {
+      id: "fleet-strategy",
+      title: "Fleet Strategy",
       qaIds: ["proc-q3", "proc-q6"],
     },
-    { id: "support", title: "Warranty & Support", qaIds: ["proc-q4"] },
-    { id: "planning", title: "Lead Times & Funding", qaIds: ["proc-q5"] },
-    { id: "pilots", title: "Pilots & Demos", qaIds: ["proc-q8"] },
+    {
+      id: "warranty-support",
+      title: "Warranty & Support",
+      qaIds: ["proc-q4"],
+    },
+    {
+      id: "planning-funding",
+      title: "Planning & Funding",
+      qaIds: ["proc-q5"],
+    },
+    {
+      id: "performance-metrics",
+      title: "Performance Metrics",
+      qaIds: ["proc-q8", "tele-q6", "tele-q7"],
+    },
   ],
   terms: ["TCO", "RFQ", "Cooperative Contracts", "KPI"],
-  relatedSlugs: ["fit-compliance", "controls-101"],
+  relatedSlugs: ["integration", "technology", "equipment"],
   factCardTitle: "MTech value",
   factCardBullets: [
     "Ohio-built ARM packages",

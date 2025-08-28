@@ -1,4 +1,4 @@
-import { type KnowledgeSection } from "../types";
+import { type KnowledgeSection } from "../../types";
 
 export const PLows101: KnowledgeSection = {
   slug: "plows-101",
