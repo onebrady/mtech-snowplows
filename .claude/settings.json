@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(node_modules/**)",
+      "Read(test-results/**)",
+      "Read(tests/__screenshots__/**)",
+      "Read(docs/internal/**)",
+      "Read(pnpm-lock.yaml)",
+      "Read(wp-local/**)",
+      "Read(.agent-os/**)",
+      "Read(dist/**)",
+      "Read(build/**)",
+      "Read(.next/**)",
+      "Read(coverage/**)",
+      "Read(playwright-report/**)",
+      "Read(.vscode/**)",
+      "Read(.idea/**)",
+      "Read(tmp/**)",
+      "Read(temp/**)",
+      "Read(.tmp/**)",
+      "Read(logs/**)",
+      "Read(*.log)",
+      "Read(.DS_Store)",
+      "Read(Thumbs.db)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(package-lock.json)",
+      "Read(yarn.lock)"
+    ]
+  }
+}
